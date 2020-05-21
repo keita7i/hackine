@@ -1,17 +1,14 @@
 package rest
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 )
 
 func NewRouter() *gin.Engine {
-	d := gin.Default()
-
-	d.GET("/", func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, "OK")
+	r := gin.Default()
+	r.StaticFile("/main.js", "/usr/share/hackine/assets/main.js")
+	r.NoRoute(func(ctx *gin.Context) {
+		ctx.File("/usr/share/hackine/assets/index.html")
 	})
-
-	return d
+	return r
 }

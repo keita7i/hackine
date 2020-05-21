@@ -7,7 +7,15 @@ services:
     - ./:/app
     - ./cache/mod:/go/pkg/mod
     - ./cache/go-build:/root/.cache/go-build
+    - ./ui/dist:/usr/share/hackine/assets
     working_dir: /app
     ports:
     - "8080:80"
     command: [go, run, .]
+  webpack:
+    image: node:12
+    container_name: hackine_webpack
+    volumes:
+    - ./ui:/build
+    working_dir: /build
+    command: [npm, run, watch]
